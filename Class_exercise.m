@@ -38,3 +38,10 @@ U = 1/s;
 Q = inv(s*eye(2)-A);
 X = minreal(Q * (x0 + B*U), 1e-3)
 Y = X(2)
+[num,den] = tfdata(Y,'v')
+[r,p] = residue(num,den)
+
+M = abs(r(1)) % modulus |R|
+2*M %2|R|
+
+phi = angle(r(1)) % phase
