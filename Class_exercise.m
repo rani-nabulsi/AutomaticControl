@@ -76,5 +76,43 @@ Y = minreal(H*U, 1e-3)
 [r, p] = residue(num, den)
 
 
+%{
+    Theorem 1
+An LTI System is internally stable if and only if all its natural
+modes are bounded.
+
+    Theorem 2
+An LTI system is asymptotically stable if and only if all its natural
+modes are convergent.
+
+    Theorem 3
+An LTI system is internally unstable if and only if there is at least one
+divergent natural mode.
+
+    Theorem 4
+An LTI system is internally stable if and only if all the eigenvalue of
+A have real part <= 0 and those with real part = 0 have minimal
+multiplicity
+
+    Theorem 5
+An LTI system is asymptotically stable if and only if all the eigenvalues
+of A have real part < 0
+
+    Theorem 6
+An LTI system is internally unstable if there exists either an eigenvalue
+with real part > 0 or an eignvalue with real part = 0 and minimal
+multiplicity
+%}
+
+%% Problem 5: stability of LTI systems
+clear all; close all; clc
+A = [0 1 0; 0 0 0; 0 0 -1]
+eig(A)
+s = tf('s')
+
+% METHOD: compute (sI-A)^-1
+% Calculate resolvent matrix
+% zpk(...): formats the output into Zero-Pole-Gain format
+zpk(minreal(inv(s*eye(3)-A), 1e-3))
 
 
