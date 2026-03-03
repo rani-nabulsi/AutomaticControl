@@ -45,3 +45,9 @@ M = abs(r(1)) % modulus |R|
 2*M %2|R|
 
 phi = angle(r(1)) % phase
+
+
+clear all; close all; clc
+%% Problem 3:
+A = [0 1; -2 -3]
+eig(A) 
