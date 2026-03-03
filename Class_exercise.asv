@@ -65,16 +65,12 @@ pole(H)
 %% Problem 4: Output Response of LTI using Laplace Transforms
 clear all; close all; clc
 s = tf('s')
-H = minreal((2*s+1)/(s+4)^2, 1e-3) % matrix inversion (wrap to cancel out overlapping)
-U = 2/s^2 % input
-
-% Calculate Output Y(s)
-Y = minreal(H*U, 1e-3)
-
-% Extract Numerator & Denominator Polynomials
-[num,den] = tfdata(Y, 'v');
-[r, p] = residue(num, den)
+H = minreal((2*s+1)/())
 
 
 
 
+%% Problem 3:
+clear all; close all; clc
+A = [0 1; -2 -3]
+eig(A) 
