@@ -1,0 +1,52 @@
+%% LAB 01
+
+%% Problem 1
+clear all; close all; clc
+
+% matrices
+A = [5 8; 1 3]
+B = [4; -1]
+C = [3 -4]
+D = 7
+x0 = [3; -3]
+
+s = tf('s')
+
+% Calculate inversion matrix
+y = minreal(inv(s*eye(2)-A), 1e-3)
+
+% Part a: ZERO-INPUT RESPONSE
+X_zi = minreal(y * x0, 1e-3)
+Y_zi = minreal(C * X_zi, 1e-3)
+
+% Extract partial fractions to build analytical equations
+% Residues - State 1: x1(t)
+[num_x1a, den_x1a] = tfdata(X_zi(1), 'v')
+[r_x1a, p_x1a] = residue(num_x1a, den_x1a)
+
+% Residues - State 2: x2(t)
+[num_x2a, den_x2a] = tfdata(X_zi(2), 'v')
+[r_x2a, p_x2a] = residue(num_x2a, den_x2a)
+
+% Residues - Output: y(t)
+[num_ya, den_ya] = tfdata(Y_zi, 'v')
+[r_ya, p_ya] = residue(num_ya, den_ya)
+
+% Part b: Total Response to a step input
+U = 4/s % laplace transform of a step input with amplitude 4
+X_zs = minreal(y * B * U, 1e-3)
+X_tot = minreal(X_zi + X_zs, 1e-3) % total zero-state reponse is X_zs(s) = y(s) * B * U(s)
+Y_tot = minreal(C * X_tot + D * U, 1e-3)
+
+% Extract partial fractions for part b
+% Residues for total state 1: x1(t)
+[num_x1b, den_x1b] = tfdata(X_tot(1), 'v')
+[r_x1b, p_x1b] = residue(num_x1b, den_x1b)
+
+% Residues for total state 2: x2(t)
+[num_x2b, den_x2b] = tfdata(X_tot(2), 'v')
+[r_x1b, p_x1b] = residue(num_x2b, den_x2b)
+
+% Residues for output: y(t)
+[num_yb, den_yb] = tfdata(Y_tot, 'v')
+[r_yb, p_yb] = residue(num_yb, den_yb)
