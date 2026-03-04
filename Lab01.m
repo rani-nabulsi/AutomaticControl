@@ -138,3 +138,34 @@ X_b = minreal(Q * (B * U_b + x0_b), 1e-3)
 % Extract and print r and p for state 4
 [num_x4, den_x4] = tfdata(X_b(4), 'v');
 [r_x4, p_x4] = residue(num_x4, den_x4)
+
+
+
+%% Problem 4:
+% matrices
+A = [0 1 0 0; -1 0 0 0; 3 0 0 0; 0 0 2 0];
+B = [1; 0; 0; 0];
+C = [1 0 0 0];
+x0 = [0; 0; 0; 0];
+
+s = tf('s');
+Q = minreal(inv(s*eye(4) - A), 1e-3);
+
+%  PART a: OUTPUT RESPONSE TO u(t) = sin(t*sqrt(2))
+% The Laplace transform of sin(w0*t) is w0 / (s^2 + w0^2) 
+U_a = sqrt(2) / (s^2 + 2);
+
+X_a = minreal(Q * (B * U_a + x0), 1e-3);
+Y_a = minreal(C * X_a, 1e-3)
+[num_ya, den_ya] = tfdata(Y_a, 'v');
+[r_ya, p_ya] = residue(num_ya, den_ya)
+
+
+%  PART b: OUTPUT RESPONSE TO u(t) = sin(t)
+% Here w0 = 1, so the Laplace transform is 1 / (s^2 + 1)[cite: 279].
+U_b = 1 / (s^2 + 1);
+
+X_b = minreal(Q * (B * U_b + x0), 1e-3);
+Y_b = minreal(C * X_b, 1e-3)
+[num_yb, den_yb] = tfdata(Y_b, 'v');
+[r_yb, p_yb] = residue(num_yb, den_yb)
