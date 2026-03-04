@@ -100,3 +100,41 @@ pole_im_x2 = imag(p_x2(1))
 
 amp_y = 2 * abs(r_y(1))
 phase_y = angle(r_y(1))
+
+
+%% Problem 3
+close all; clear all; clc
+
+% matrices
+A = [0 1 0 0; -1 -1 0 0; 0 0 -10 0; 0 0 0 -5];
+B = [1; 0; 0; 1];
+C = [1 0 1 1];
+s = tf('s');
+Q = minreal(inv(s*eye(4) - A), 1e-3);
+
+
+% Part a: output response
+x0_a = [0; 0; 0; 0];
+U_a = (s + 1) / s^2;
+
+% Calculate X&Y
+X_a = minreal(Q * (B * U_a + x0_a), 1e-3);
+Y_a = minreal(C * X_a, 1e-3) 
+
+% extract poles and zeros
+[num_ya, den_ya] = tfdata(Y_a, 'v');
+[r_ya, p_ya] = residue(num_ya, den_ya)
+
+
+% Part b: State response
+x0_b = [0; 0; 1; 1];
+U_b = 0;
+X_b = minreal(Q * (B * U_b + x0_b), 1e-3)
+
+% Extract and print r and p for state 3
+[num_x3, den_x3] = tfdata(X_b(3), 'v');
+[r_x3, p_x3] = residue(num_x3, den_x3)
+
+% Extract and print r and p for state 4
+[num_x4, den_x4] = tfdata(X_b(4), 'v');
+[r_x4, p_x4] = residue(num_x4, den_x4)
