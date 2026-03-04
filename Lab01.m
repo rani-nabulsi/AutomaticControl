@@ -161,8 +161,8 @@ Y_a = minreal(C * X_a, 1e-3)
 [r_ya, p_ya] = residue(num_ya, den_ya)
 
 
-%  PART b: OUTPUT RESPONSE TO u(t) = sin(t)
-% Here w0 = 1, so the Laplace transform is 1 / (s^2 + 1)[cite: 279].
+%  PART b: outout response u(t) = sin(t)
+% Here w0 = 1, so the Laplace transform is 1 / (s^2 + 1)
 U_b = 1 / (s^2 + 1);
 
 X_b = minreal(Q * (B * U_b + x0), 1e-3);
