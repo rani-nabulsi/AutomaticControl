@@ -122,5 +122,13 @@ clear all; close all; clc
 A = [0 1 0; 0 0 0; 0 0 -1]
 eig(A)
 s = tf('s')
-zpk(minreal(inv(s*eye(3)-A), 1e-3))
-roots(minpoly(A))
+zpk(minreal(inv(s*eye(3)-A), 1e-3)) % 1st method
+roots(minpoly(A)) % 2nd method
+
+
+%% Problem 7
+clear all; close all; clc
+A = [0 0 0; 0 0 0; 0 0 -1]
+eig(A)
+s = tf('s')
+zpk(minreal(inv(s*eye(3)-A), 1e-3)) 
